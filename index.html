@@ -6,378 +6,69 @@
 <title>Pesquisa de Satisfação — Refeições</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #F7F5F0;
-    --surface: #FFFFFF;
-    --accent: #2D5016;
-    --accent-light: #E8F0E0;
-    --accent-mid: #4A7C2F;
-    --text: #1A1A1A;
-    --text-muted: #6B6B6B;
-    --text-light: #9E9E9E;
-    --border: #E0DDD5;
-    --star-off: #DDD9D0;
-    --star-on: #E8A020;
-    --danger: #C0392B;
-    --success-bg: #E8F5E8;
-    --success-text: #1B5E20;
-    --radius: 16px;
-    --radius-sm: 10px;
-  }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .header {
-    background: var(--accent);
-    padding: 20px 24px 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .header-icon {
-    width: 44px;
-    height: 44px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-  }
-
-  .header-text h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    color: #fff;
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  .header-text p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.65);
-    margin-top: 2px;
-  }
-
-  .progress-bar {
-    height: 3px;
-    background: rgba(255,255,255,0.2);
-    position: relative;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: #A8D878;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  .content {
-    padding: 20px 16px 32px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .step { display: none; }
-  .step.active { display: block; }
-
-  .step-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--accent-mid);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .step-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px;
-    font-weight: 400;
-    color: var(--text);
-    line-height: 1.2;
-    margin-bottom: 20px;
-  }
-
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-
-  .option-btn {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 10px;
-    text-align: center;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.15s;
-    line-height: 1.3;
-  }
-
-  .option-btn .opt-icon { font-size: 22px; display: block; margin-bottom: 5px; }
-  .option-btn:active { transform: scale(0.97); }
-  .option-btn.selected {
-    background: var(--accent-light);
-    border-color: var(--accent-mid);
-    color: var(--accent);
-  }
-
-  .lojas-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .loja-btn {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 13px 6px;
-    text-align: center;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.15s;
-    letter-spacing: 0.03em;
-  }
-
-  .loja-btn:active { transform: scale(0.96); }
-  .loja-btn.selected {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-
-  .divider-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--text-light);
-    text-transform: uppercase;
-    margin: 14px 0 8px;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 16px;
-    margin-bottom: 12px;
-  }
-
-  .card-label {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    display: block;
-    font-weight: 400;
-  }
-
-  .stars {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-  }
-
-  .star {
-    font-size: 38px;
-    color: var(--star-off);
-    cursor: pointer;
-    transition: color 0.1s, transform 0.1s;
-    line-height: 1;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  .star.on { color: var(--star-on); }
-  .star:active { transform: scale(1.2); }
-
-  .emoji-row {
-    display: flex;
-    gap: 6px;
-  }
-
-  .emoji-btn {
-    flex: 1;
-    padding: 10px 4px 8px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.15s;
-  }
-
-  .emoji-btn .e-icon { font-size: 24px; display: block; }
-  .emoji-btn .e-label { font-size: 9px; color: var(--text-light); display: block; margin-top: 3px; font-weight: 500; }
-  .emoji-btn.selected { border-color: var(--accent-mid); background: var(--accent-light); }
-
-  textarea {
-    width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: var(--text);
-    background: var(--surface);
-    resize: none;
-    outline: none;
-    line-height: 1.5;
-  }
-
-  textarea:focus { border-color: var(--accent-mid); }
-  textarea::placeholder { color: var(--text-light); }
-
-  .btn-primary {
-    width: 100%;
-    padding: 17px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 16px;
-    transition: opacity 0.15s, transform 0.1s;
-    letter-spacing: 0.01em;
-  }
-
-  .btn-primary:active { opacity: 0.85; transform: scale(0.99); }
-  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .btn-secondary {
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    color: var(--text-muted);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: all 0.15s;
-  }
-
-  .btn-secondary:active { background: var(--border); }
-
-  .error-msg {
-    background: #FEF0F0;
-    border: 1px solid #F5C6C6;
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-size: 13px;
-    color: var(--danger);
-    margin-top: 12px;
-    display: none;
-  }
-
-  .success-screen {
-    text-align: center;
-    padding: 40px 20px;
-  }
-
-  .success-icon-wrap {
-    width: 80px;
-    height: 80px;
-    background: var(--success-bg);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 38px;
-  }
-
-  .success-screen h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .success-screen p {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 32px;
-  }
-
-  .sending-overlay {
-    text-align: center;
-    padding: 60px 20px;
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 16px;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .sending-overlay p { font-size: 15px; color: var(--text-muted); }
-
-  .summary-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--accent-light);
-    color: var(--accent);
-    border-radius: 20px;
-    padding: 5px 12px;
-    font-size: 13px;
-    font-weight: 500;
-    margin: 0 4px 6px 0;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F7F5F0; --surface: #FFFFFF; --accent: #2D5016; --accent-light: #E8F0E0;
+  --accent-mid: #4A7C2F; --text: #1A1A1A; --text-muted: #6B6B6B; --text-light: #9E9E9E;
+  --border: #E0DDD5; --star-off: #DDD9D0; --star-on: #E8A020; --danger: #C0392B;
+  --success-bg: #E8F5E8; --radius: 16px; --radius-sm: 10px;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-tap-highlight-color: transparent; }
+.header { background: var(--accent); padding: 20px 24px 18px; display: flex; align-items: center; gap: 14px; }
+.header-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.header-text h1 { font-family: 'DM Serif Display', serif; font-size: 20px; color: #fff; font-weight: 400; }
+.header-text p { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+.progress-bar { height: 3px; background: rgba(255,255,255,0.2); }
+.progress-fill { height: 100%; background: #A8D878; transition: width 0.4s ease; width: 0%; }
+.content { padding: 20px 16px 32px; max-width: 600px; margin: 0 auto; }
+.step { display: none; } .step.active { display: block; }
+.step-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; color: var(--accent-mid); text-transform: uppercase; margin-bottom: 6px; }
+.step-title { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 20px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.option-btn { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px 10px; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--text); cursor: pointer; transition: all 0.15s; line-height: 1.3; }
+.option-btn .opt-icon { font-size: 22px; display: block; margin-bottom: 5px; }
+.option-btn.selected { background: var(--accent-light); border-color: var(--accent-mid); color: var(--accent); }
+.lojas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+.loja-btn { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 13px 6px; text-align: center; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
+.loja-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
+.divider-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; color: var(--text-light); text-transform: uppercase; margin: 14px 0 8px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; margin-bottom: 12px; }
+.card-label { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; display: block; }
+.stars { display: flex; gap: 6px; justify-content: center; }
+.star { font-size: 38px; color: var(--star-off); cursor: pointer; transition: color 0.1s; line-height: 1; user-select: none; }
+.star.on { color: var(--star-on); }
+.emoji-row { display: flex; gap: 6px; }
+.emoji-btn { flex: 1; padding: 10px 4px 8px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; text-align: center; transition: all 0.15s; }
+.emoji-btn .e-icon { font-size: 24px; display: block; }
+.emoji-btn .e-label { font-size: 9px; color: var(--text-light); display: block; margin-top: 3px; font-weight: 500; }
+.emoji-btn.selected { border-color: var(--accent-mid); background: var(--accent-light); }
+textarea { width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text); background: var(--surface); resize: none; outline: none; line-height: 1.5; }
+.btn-primary { width: 100%; padding: 17px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 16px; transition: opacity 0.15s; }
+.btn-secondary { width: 100%; padding: 14px; background: transparent; color: var(--text-muted); border: 1.5px solid var(--border); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 15px; cursor: pointer; margin-top: 10px; }
+.error-msg { background: #FEF0F0; border: 1px solid #F5C6C6; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: var(--danger); margin-top: 12px; display: none; }
+.success-screen { text-align: center; padding: 40px 20px; }
+.success-icon-wrap { width: 80px; height: 80px; background: var(--success-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 38px; }
+.success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+.success-screen p { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 32px; }
+.spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.sending-overlay { text-align: center; padding: 60px 20px; }
+.summary-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); color: var(--accent); border-radius: 20px; padding: 5px 12px; font-size: 13px; font-weight: 500; margin: 0 4px 6px 0; }
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-icon">🍽</div>
-  <div class="header-text">
-    <h1>Avaliação de Refeição</h1>
-    <p>Super Lagoa — Sua opinião importa</p>
-  </div>
+  <div class="header-text"><h1>Avaliação de Refeição</h1><p>Super Lagoa — Sua opinião importa</p></div>
 </div>
-<div class="progress-bar">
-  <div class="progress-fill" id="progressFill"></div>
-</div>
-
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 <div class="content">
-
   <div class="step active" id="step1">
     <div class="step-label">Passo 1 de 4</div>
     <div class="step-title">Qual é a sua loja?</div>
-
     <div class="divider-label">Lojas</div>
-    <div class="lojas-grid" id="lojasGrid">
+    <div class="lojas-grid">
       <button class="loja-btn" onclick="selectLoja(this,'PAR')">PAR</button>
       <button class="loja-btn" onclick="selectLoja(this,'CEN')">CEN</button>
       <button class="loja-btn" onclick="selectLoja(this,'JUA')">JUA</button>
@@ -395,289 +86,96 @@
       <button class="loja-btn" onclick="selectLoja(this,'DMT')">DMT</button>
       <button class="loja-btn" onclick="selectLoja(this,'AT2')">AT2</button>
       <button class="loja-btn" onclick="selectLoja(this,'CBO')">CBO</button>
-      <button class="loja-btn" onclick="selectLoja(this,'Total LOJAS')">Total<br>LOJAS</button>
+      <button class="loja-btn" onclick="selectLoja(this,'Total LOJAS')">Total LOJAS</button>
     </div>
-
-    <div class="divider-label">Administrativo / Outros</div>
+    <div class="divider-label">Administrativo</div>
     <div class="lojas-grid">
       <button class="loja-btn" onclick="selectLoja(this,'ADM')">ADM</button>
       <button class="loja-btn" onclick="selectLoja(this,'CD')">CD</button>
       <button class="loja-btn" onclick="selectLoja(this,'CGA')">CGA</button>
     </div>
-
     <div class="error-msg" id="err1">Selecione sua loja para continuar.</div>
     <button class="btn-primary" onclick="goStep(2)">Continuar →</button>
   </div>
-
   <div class="step" id="step2">
     <div class="step-label">Passo 2 de 4</div>
     <div class="step-title">Qual refeição você está avaliando?</div>
-
     <div class="grid-2">
-      <button class="option-btn" onclick="selectOpt(this,'refeicao','Almoço')">
-        <span class="opt-icon">☀️</span>Almoço
-      </button>
-      <button class="option-btn" onclick="selectOpt(this,'refeicao','Jantar')">
-        <span class="opt-icon">🌙</span>Jantar
-      </button>
+      <button class="option-btn" onclick="selectOpt(this,'refeicao','Almoço')"><span class="opt-icon">☀️</span>Almoço</button>
+      <button class="option-btn" onclick="selectOpt(this,'refeicao','Jantar')"><span class="opt-icon">🌙</span>Jantar</button>
     </div>
-
     <div style="margin-top:20px;">
-      <div class="step-title" style="font-size:20px; margin-bottom:14px;">Horário da refeição</div>
+      <div class="step-title" style="font-size:20px;margin-bottom:14px;">Horário</div>
       <div class="grid-3">
-        <button class="option-btn" onclick="selectOpt(this,'horario','11h–12h')">11h–12h</button>
-        <button class="option-btn" onclick="selectOpt(this,'horario','12h–13h')">12h–13h</button>
-        <button class="option-btn" onclick="selectOpt(this,'horario','13h–14h')">13h–14h</button>
-        <button class="option-btn" onclick="selectOpt(this,'horario','18h–19h')">18h–19h</button>
-        <button class="option-btn" onclick="selectOpt(this,'horario','19h–20h')">19h–20h</button>
-        <button class="option-btn" onclick="selectOpt(this,'horario','20h–21h')">20h–21h</button>
+        <button class="option-btn" onclick="selectOpt(this,'horario','11h-12h')">11h-12h</button>
+        <button class="option-btn" onclick="selectOpt(this,'horario','12h-13h')">12h-13h</button>
+        <button class="option-btn" onclick="selectOpt(this,'horario','13h-14h')">13h-14h</button>
+        <button class="option-btn" onclick="selectOpt(this,'horario','18h-19h')">18h-19h</button>
+        <button class="option-btn" onclick="selectOpt(this,'horario','19h-20h')">19h-20h</button>
+        <button class="option-btn" onclick="selectOpt(this,'horario','20h-21h')">20h-21h</button>
       </div>
     </div>
-
     <div class="error-msg" id="err2">Selecione a refeição e o horário.</div>
     <button class="btn-primary" onclick="goStep(3)">Continuar →</button>
     <button class="btn-secondary" onclick="goStep(1)">← Voltar</button>
   </div>
-
   <div class="step" id="step3">
     <div class="step-label">Passo 3 de 4</div>
     <div class="step-title">Avalie cada critério</div>
-
-    <div class="card">
-      <span class="card-label">🍲 Qualidade da comida</span>
-      <div class="stars" id="s-qualidade">
-        <span class="star" onclick="rate('qualidade',1)">★</span>
-        <span class="star" onclick="rate('qualidade',2)">★</span>
-        <span class="star" onclick="rate('qualidade',3)">★</span>
-        <span class="star" onclick="rate('qualidade',4)">★</span>
-        <span class="star" onclick="rate('qualidade',5)">★</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="card-label">📋 Variedade do cardápio</span>
-      <div class="stars" id="s-cardapio">
-        <span class="star" onclick="rate('cardapio',1)">★</span>
-        <span class="star" onclick="rate('cardapio',2)">★</span>
-        <span class="star" onclick="rate('cardapio',3)">★</span>
-        <span class="star" onclick="rate('cardapio',4)">★</span>
-        <span class="star" onclick="rate('cardapio',5)">★</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="card-label">🌡 Temperatura dos alimentos</span>
-      <div class="stars" id="s-temperatura">
-        <span class="star" onclick="rate('temperatura',1)">★</span>
-        <span class="star" onclick="rate('temperatura',2)">★</span>
-        <span class="star" onclick="rate('temperatura',3)">★</span>
-        <span class="star" onclick="rate('temperatura',4)">★</span>
-        <span class="star" onclick="rate('temperatura',5)">★</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="card-label">🧹 Limpeza e higiene</span>
-      <div class="stars" id="s-limpeza">
-        <span class="star" onclick="rate('limpeza',1)">★</span>
-        <span class="star" onclick="rate('limpeza',2)">★</span>
-        <span class="star" onclick="rate('limpeza',3)">★</span>
-        <span class="star" onclick="rate('limpeza',4)">★</span>
-        <span class="star" onclick="rate('limpeza',5)">★</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="card-label">⚖️ Quantidade / porção</span>
-      <div class="stars" id="s-quantidade">
-        <span class="star" onclick="rate('quantidade',1)">★</span>
-        <span class="star" onclick="rate('quantidade',2)">★</span>
-        <span class="star" onclick="rate('quantidade',3)">★</span>
-        <span class="star" onclick="rate('quantidade',4)">★</span>
-        <span class="star" onclick="rate('quantidade',5)">★</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <span class="card-label">✨ Apresentação do prato</span>
-      <div class="stars" id="s-apresentacao">
-        <span class="star" onclick="rate('apresentacao',1)">★</span>
-        <span class="star" onclick="rate('apresentacao',2)">★</span>
-        <span class="star" onclick="rate('apresentacao',3)">★</span>
-        <span class="star" onclick="rate('apresentacao',4)">★</span>
-        <span class="star" onclick="rate('apresentacao',5)">★</span>
-      </div>
-    </div>
-
+    <div class="card"><span class="card-label">🍲 Qualidade da comida</span><div class="stars" id="s-qualidade"><span class="star" onclick="rate('qualidade',1)">★</span><span class="star" onclick="rate('qualidade',2)">★</span><span class="star" onclick="rate('qualidade',3)">★</span><span class="star" onclick="rate('qualidade',4)">★</span><span class="star" onclick="rate('qualidade',5)">★</span></div></div>
+    <div class="card"><span class="card-label">📋 Variedade do cardápio</span><div class="stars" id="s-cardapio"><span class="star" onclick="rate('cardapio',1)">★</span><span class="star" onclick="rate('cardapio',2)">★</span><span class="star" onclick="rate('cardapio',3)">★</span><span class="star" onclick="rate('cardapio',4)">★</span><span class="star" onclick="rate('cardapio',5)">★</span></div></div>
+    <div class="card"><span class="card-label">🌡 Temperatura</span><div class="stars" id="s-temperatura"><span class="star" onclick="rate('temperatura',1)">★</span><span class="star" onclick="rate('temperatura',2)">★</span><span class="star" onclick="rate('temperatura',3)">★</span><span class="star" onclick="rate('temperatura',4)">★</span><span class="star" onclick="rate('temperatura',5)">★</span></div></div>
+    <div class="card"><span class="card-label">🧹 Limpeza e higiene</span><div class="stars" id="s-limpeza"><span class="star" onclick="rate('limpeza',1)">★</span><span class="star" onclick="rate('limpeza',2)">★</span><span class="star" onclick="rate('limpeza',3)">★</span><span class="star" onclick="rate('limpeza',4)">★</span><span class="star" onclick="rate('limpeza',5)">★</span></div></div>
+    <div class="card"><span class="card-label">⚖️ Quantidade / porção</span><div class="stars" id="s-quantidade"><span class="star" onclick="rate('quantidade',1)">★</span><span class="star" onclick="rate('quantidade',2)">★</span><span class="star" onclick="rate('quantidade',3)">★</span><span class="star" onclick="rate('quantidade',4)">★</span><span class="star" onclick="rate('quantidade',5)">★</span></div></div>
+    <div class="card"><span class="card-label">✨ Apresentação do prato</span><div class="stars" id="s-apresentacao"><span class="star" onclick="rate('apresentacao',1)">★</span><span class="star" onclick="rate('apresentacao',2)">★</span><span class="star" onclick="rate('apresentacao',3)">★</span><span class="star" onclick="rate('apresentacao',4)">★</span><span class="star" onclick="rate('apresentacao',5)">★</span></div></div>
     <div class="error-msg" id="err3">Avalie todos os critérios para continuar.</div>
     <button class="btn-primary" onclick="goStep(4)">Continuar →</button>
     <button class="btn-secondary" onclick="goStep(2)">← Voltar</button>
   </div>
-
   <div class="step" id="step4">
     <div class="step-label">Passo 4 de 4</div>
     <div class="step-title">Impressão geral</div>
-
     <div class="card">
       <span class="card-label">Como você saiu da refeição hoje?</span>
       <div class="emoji-row">
-        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Muito ruim')">
-          <span class="e-icon">😞</span><span class="e-label">Muito ruim</span>
-        </button>
-        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Regular')">
-          <span class="e-icon">😐</span><span class="e-label">Regular</span>
-        </button>
-        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Bom')">
-          <span class="e-icon">🙂</span><span class="e-label">Bom</span>
-        </button>
-        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Ótimo')">
-          <span class="e-icon">😄</span><span class="e-label">Ótimo</span>
-        </button>
-        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Excelente')">
-          <span class="e-icon">🤩</span><span class="e-label">Excelente</span>
-        </button>
+        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Muito ruim')"><span class="e-icon">😞</span><span class="e-label">Muito ruim</span></button>
+        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Regular')"><span class="e-icon">😐</span><span class="e-label">Regular</span></button>
+        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Bom')"><span class="e-icon">🙂</span><span class="e-label">Bom</span></button>
+        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Ótimo')"><span class="e-icon">😄</span><span class="e-label">Ótimo</span></button>
+        <button class="emoji-btn" onclick="selectOpt(this,'impressao','Excelente')"><span class="e-icon">🤩</span><span class="e-label">Excelente</span></button>
       </div>
     </div>
-
-    <div class="card">
-      <span class="card-label">Comentário ou sugestão (opcional)</span>
-      <textarea id="comentario" rows="3" placeholder="O que poderia melhorar?"></textarea>
-    </div>
-
+    <div class="card"><span class="card-label">Comentário (opcional)</span><textarea id="comentario" rows="3" placeholder="O que poderia melhorar?"></textarea></div>
     <div class="error-msg" id="err4">Selecione sua impressão geral.</div>
     <button class="btn-primary" onclick="submitForm()">Enviar avaliação ✓</button>
     <button class="btn-secondary" onclick="goStep(3)">← Voltar</button>
   </div>
-
-  <div class="step" id="stepSending">
-    <div class="sending-overlay">
-      <div class="spinner"></div>
-      <p>Enviando sua avaliação...</p>
-    </div>
-  </div>
-
+  <div class="step" id="stepSending"><div class="sending-overlay"><div class="spinner"></div><p>Enviando...</p></div></div>
   <div class="step" id="stepSuccess">
     <div class="success-screen">
       <div class="success-icon-wrap">✅</div>
       <h2>Obrigado!</h2>
-      <p>Sua avaliação foi registrada com sucesso.<br>Sua opinião nos ajuda a melhorar cada refeição.</p>
+      <p>Sua avaliação foi registrada!<br>Sua opinião nos ajuda a melhorar.</p>
       <div id="summaryChips" style="margin-bottom:28px;"></div>
-      <button class="btn-primary" onclick="resetForm()" style="max-width:280px; margin:0 auto; display:block;">
-        Nova avaliação
-      </button>
+      <button class="btn-primary" onclick="resetForm()" style="max-width:280px;margin:0 auto;display:block;">Nova avaliação</button>
     </div>
   </div>
-
 </div>
-
 <script>
-  const SHEETS_URL = 'https://script.google.com/a/macros/superlagoa.com.br/s/AKfycbxuMWM7fI-nKCbjcEs-DGimg1HgV7r4pvjxhpxpXj_oY7lf_i5oSDsOQqgLwMj11Q_H/exec';
-
-  const data = {
-    loja: null,
-    refeicao: null,
-    horario: null,
-    impressao: null,
-    qualidade: 0,
-    cardapio: 0,
-    temperatura: 0,
-    limpeza: 0,
-    quantidade: 0,
-    apresentacao: 0,
-    comentario: ''
-  };
-
-  const stepProgress = { 1: 0, 2: 30, 3: 60, 4: 85, stepSending: 95, stepSuccess: 100 };
-
-  function setProgress(p) {
-    document.getElementById('progressFill').style.width = p + '%';
-  }
-
-  function showStep(id) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0, 0);
-    const prog = stepProgress[id] !== undefined ? stepProgress[id] : stepProgress[parseInt(id.replace('step',''))] || 0;
-    setProgress(prog);
-  }
-
-  function goStep(n) {
-    if (n === 2 && !data.loja) { showErr('err1'); return; }
-    if (n === 3 && (!data.refeicao || !data.horario)) { showErr('err2'); return; }
-    if (n === 4) {
-      const keys = ['qualidade','cardapio','temperatura','limpeza','quantidade','apresentacao'];
-      if (keys.some(k => !data[k])) { showErr('err3'); return; }
-    }
-    hideAllErr();
-    showStep('step' + n);
-  }
-
-  function showErr(id) {
-    hideAllErr();
-    document.getElementById(id).style.display = 'block';
-  }
-
-  function hideAllErr() {
-    document.querySelectorAll('.error-msg').forEach(e => e.style.display = 'none');
-  }
-
-  function selectLoja(btn, val) {
-    data.loja = val;
-    document.querySelectorAll('.loja-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    hideAllErr();
-    setTimeout(() => goStep(2), 180);
-  }
-
-  const optGroups = {};
-
-  function selectOpt(btn, key, val) {
-    data[key] = val;
-    const container = btn.closest('.grid-2, .grid-3, .emoji-row');
-    if (container) container.querySelectorAll('.option-btn, .emoji-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    hideAllErr();
-  }
-
-  function rate(key, val) {
-    data[key] = val;
-    const stars = document.querySelectorAll('#s-' + key + ' .star');
-    stars.forEach((s, i) => s.classList.toggle('on', i < val));
-  }
-
-  async function submitForm() {
-    if (!data.impressao) { showErr('err4'); return; }
-    data.comentario = document.getElementById('comentario').value.trim();
-    showStep('stepSending');
-    const payload = {
-      loja: data.loja, refeicao: data.refeicao, horario: data.horario,
-      qualidade: data.qualidade, cardapio: data.cardapio, temperatura: data.temperatura,
-      limpeza: data.limpeza, quantidade: data.quantidade, apresentacao: data.apresentacao,
-      impressao: data.impressao, comentario: data.comentario
-    };
-    try {
-      await fetch(SHEETS_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    } catch(e) {}
-    const chips = document.getElementById('summaryChips');
-    chips.innerHTML = `<span class="summary-chip">📍 ${data.loja}</span><span class="summary-chip">${data.refeicao === 'Almoço' ? '☀️' : '🌙'} ${data.refeicao}</span><span class="summary-chip">⏰ ${data.horario}</span><span class="summary-chip">${data.impressao}</span>`;
-    showStep('stepSuccess');
-  }
-
-  function resetForm() {
-    Object.keys(data).forEach(k => { data[k] = typeof data[k] === 'number' ? 0 : null; });
-    data.comentario = '';
-    document.querySelectorAll('.loja-btn, .option-btn, .emoji-btn').forEach(b => b.classList.remove('selected'));
-    document.querySelectorAll('.star').forEach(s => s.classList.remove('on'));
-    document.getElementById('comentario').value = '';
-    hideAllErr();
-    showStep('step1');
-  }
-
-  setProgress(0);
+const URL='https://script.google.com/a/macros/superlagoa.com.br/s/AKfycbz2gaOhqWX4jWS3-v6xHEqibbICn9NcUrTbB6XR0YeZg8ZpFOzeKH2yP-oTyqHpYJq_/exec';
+const data={loja:null,refeicao:null,horario:null,impressao:null,qualidade:0,cardapio:0,temperatura:0,limpeza:0,quantidade:0,apresentacao:0,comentario:''};
+const sp={1:0,2:30,3:60,4:85,stepSending:95,stepSuccess:100};
+function setP(p){document.getElementById('progressFill').style.width=p+'%';}
+function showStep(id){document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);setP(sp[id]!==undefined?sp[id]:sp[parseInt(id.replace('step',''))]||0);}
+function goStep(n){if(n===2&&!data.loja){showErr('err1');return;}if(n===3&&(!data.refeicao||!data.horario)){showErr('err2');return;}if(n===4){if(['qualidade','cardapio','temperatura','limpeza','quantidade','apresentacao'].some(k=>!data[k])){showErr('err3');return;}}hideErr();showStep('step'+n);}
+function showErr(id){hideErr();document.getElementById(id).style.display='block';}
+function hideErr(){document.querySelectorAll('.error-msg').forEach(e=>e.style.display='none');}
+function selectLoja(btn,val){data.loja=val;document.querySelectorAll('.loja-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');hideErr();setTimeout(()=>goStep(2),180);}
+function selectOpt(btn,key,val){data[key]=val;const c=btn.closest('.grid-2,.grid-3,.emoji-row');if(c)c.querySelectorAll('.option-btn,.emoji-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');hideErr();}
+function rate(key,val){data[key]=val;document.querySelectorAll('#s-'+key+' .star').forEach((s,i)=>s.classList.toggle('on',i<val));}
+async function submitForm(){if(!data.impressao){showErr('err4');return;}data.comentario=document.getElementById('comentario').value.trim();showStep('stepSending');try{await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({'Loja':data.loja,'Refeição':data.refeicao,'Horário':data.horario,'Qualidade':data.qualidade,'Variedade':data.cardapio,'Temperatura':data.temperatura,'Limpeza':data.limpeza,'Quantidade':data.quantidade,'Apresentação':data.apresentacao,'Impressão Geral':data.impressao,'Comentário':data.comentario})});}catch(e){}document.getElementById('summaryChips').innerHTML='<span class="summary-chip">📍 '+data.loja+'</span> <span class="summary-chip">'+data.refeicao+'</span> <span class="summary-chip">⏰ '+data.horario+'</span>';showStep('stepSuccess');}
+function resetForm(){Object.keys(data).forEach(k=>{data[k]=typeof data[k]==='number'?0:null;});data.comentario='';document.querySelectorAll('.loja-btn,.option-btn,.emoji-btn').forEach(b=>b.classList.remove('selected'));document.querySelectorAll('.star').forEach(s=>s.classList.remove('on'));document.getElementById('comentario').value='';hideErr();showStep('step1');}
+setP(0);
 </script>
 </body>
 </html>
