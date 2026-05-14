@@ -148,7 +148,7 @@ function render(d){
     document.getElementById('m-pior').textContent=mp.label+' ('+mp.v.toFixed(1)+')';
     document.getElementById('m-pos').textContent=Math.round(po/n*100)+'%';
   }else{['m-media','m-melhor','m-pior','m-pos'].forEach(id=>document.getElementById(id).textContent='—');document.getElementById('m-stars').textContent='';}
-  dc('cC');ch['cC']=new Chart(document.getElementById('cC'),{type:'bar',data:{labels:ms.map(x=>x.label),datasets:[{data:ms.map(x=>x.v),backgroundColor:GS,borderRadius:8,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{min:0,max:5},y:{grid:{display:false}}}}});
+  dc('cC');ch['cC']=new Chart(document.getElementById('cC'),{type:'bar',data:{labels:ms.map(x=>x.label),datasets:[{data:ms.map(x=>x.v),backgroundColor:GS,borderRadius:8,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{min:0,max:5},y:{grid:{display:false},ticks:{autoSkip:false}}}}});
   const lg={};d.forEach(r=>{const l=r['Loja']||'?';if(!lg[l])lg[l]=[];lg[l].push(r);});const ls=Object.entries(lg).map(function(e){var avgs=CK.map(c=>avg(e[1],c)).filter(v=>v>0);return[e[0],avgs.length?+(avgs.reduce((s,v)=>s+v,0)/avgs.length).toFixed(2):0];}).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);
   dc('cL');ch['cL']=new Chart(document.getElementById('cL'),{type:'bar',data:{labels:ls.map(x=>x[0]),datasets:[{data:ls.map(x=>x[1]),backgroundColor:'#4A7C2F',borderRadius:6,borderSkipped:false}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,min:0,max:5},x:{grid:{display:false},ticks:{autoSkip:false,maxRotation:50}}}}});
   const il=['Excelente','Ótimo','Bom','Regular','Muito ruim'];
