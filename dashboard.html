@@ -136,8 +136,8 @@ function render(d){
   const n=d.length;
   document.getElementById('m-total').textContent=n;
   document.getElementById('m-sub').textContent=n+' avaliações';
+  const ms=CK.map(l=>({label:l,v:avg(d,l)})).filter(x=>x.v>0);
   if(n>0){
-    const ms=CK.map(l=>({label:l,v:avg(d,l)})).filter(x=>x.v>0);
     const mg=ms.reduce((s,x)=>s+x.v,0)/(ms.length||1);
     const ml=ms.reduce((a,b)=>a.v>b.v?a:b);
     const mp=ms.reduce((a,b)=>a.v<b.v?a:b);
