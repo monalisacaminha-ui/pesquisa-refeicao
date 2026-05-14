@@ -91,7 +91,7 @@ td{padding:9px 10px;border-bottom:1px solid var(--bg);vertical-align:middle}
   <div class="card">
     <div class="card-title">Últimas 50 respostas</div>
     <div class="table-wrap"><table><thead><tr><th>Data</th><th>Loja</th><th>Refeição</th><th>Horário</th><th>Qualidade</th><th>Variedade</th><th>Temp.</th><th>Limpeza</th><th>Impressão</th><th>Comentário</th></tr></thead>
-    <tbody id="tbody"><tr><td colspan="12" class="empty-state">Carregando...</td></tr></tbody></table></div>
+    <tbody id="tbody"><tr><td colspan="10" class="empty-state">Carregando...</td></tr></tbody></table></div>
   </div>
 </div>
 <script>
@@ -161,7 +161,7 @@ function render(d){
   dc('cE');ch['cE']=new Chart(document.getElementById('cE'),{type:'line',data:{labels:days,datasets:[{label:'Média',data:days.map(k=>avgA(dm[k])),borderColor:'#4A7C2F',backgroundColor:'rgba(74,124,47,.1)',pointBackgroundColor:'#4A7C2F',pointRadius:4,fill:true,tension:.35}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:0,max:5},x:{grid:{display:false}}}}});
   const tb=document.getElementById('tbody');
   if(!n){tb.innerHTML='<tr><td colspan="12" class="empty-state">📭 Nenhuma resposta encontrada.</td></tr>';return;}
-  tb.innerHTML=[...d].reverse().slice(0,50).map(r=>`<tr><td style="font-size:11px;color:var(--light)">${r['Data']||'—'}</td><td><span class="loja-tag">${r['Loja']||'—'}</span></td><td>${r['Refeição']||'—'}</td><td>${r['Horário']||'—'}</td><td>${sc(r['Qualidade'])}</td><td>${sc(r['Variedade'])}</td><td>${sc(r['Temperatura'])}</td><td>${sc(r['Limpeza'])}</td><td>${sc(r['Quantidade'])}</td><td>${sc(r['Apresentação'])}</td><td><span class="imp-badge imp-${(r['Impressão Geral']||'').replace(' ','.')}">${r['Impressão Geral']||'—'}</span></td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r['Comentário']||''}</td></tr>`).join('');
+  tb.innerHTML=[...d].reverse().slice(0,50).map(r=>`<tr><td style="font-size:11px;color:var(--light)">${r['Data']||'—'}</td><td><span class="loja-tag">${r['Loja']||'—'}</span></td><td>${r['Refeição']||'—'}</td><td>${r['Horário']||'—'}</td><td>${sc(r['Qualidade'])}</td><td>${sc(r['Variedade'])}</td><td>${sc(r['Temperatura'])}</td><td>${sc(r['Limpeza'])}</td><td><span class="imp-badge imp-${(r['Impressão Geral']||'').replace(' ','.')}">${r['Impressão Geral']||'—'}</span></td><td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r['Comentário']||''}</td></tr>`).join('');
 }
 loadData();
 setInterval(loadData,30000);
