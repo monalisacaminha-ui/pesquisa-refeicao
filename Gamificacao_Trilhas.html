@@ -32,4 +32,211 @@
   .equipes { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
   .eq { background:#fff; border-radius:16px; padding:22px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,.08); border-top:6px solid #1565d8; }
   .eq .ico { font-size:2.2rem; }
-  .eq h3 { color:#0a3d
+  .eq h3 { color:#0a3d91; margin:8px 0; }
+  .eq .xp { font-size:1.6rem; font-weight:800; color:#f7b500; }
+  .rank-box { background:#fff; border-radius:16px; padding:20px; box-shadow:0 4px 14px rgba(0,0,0,.08); }
+  .tabs { display:flex; gap:8px; justify-content:center; margin-bottom:16px; flex-wrap:wrap; }
+  .tab { background:#eef2f8; border:none; padding:10px 18px; border-radius:20px; cursor:pointer; font-weight:600; color:#0a3d91; font-size:.95rem; }
+  .tab.ativo { background:#1565d8; color:#fff; }
+  table { width:100%; border-collapse:collapse; }
+  th,td { padding:12px 10px; text-align:left; border-bottom:1px solid #eef2f8; }
+  th { color:#0a3d91; font-size:.85rem; text-transform:uppercase; letter-spacing:.5px; }
+  td.xp { font-weight:700; color:#f7b500; text-align:right; }
+  .atualizar { display:block; margin:16px auto 4px; background:#1565d8; color:#fff; border:none; padding:11px 22px; border-radius:22px; cursor:pointer; font-weight:600; }
+  .atu-info { text-align:center; font-size:.82rem; color:#889; }
+  .trilha { background:#fff; border-radius:16px; padding:20px; box-shadow:0 4px 14px rgba(0,0,0,.08); margin-bottom:16px; }
+  .trilha h3 { color:#0a3d91; margin-bottom:12px; font-size:1.15rem; }
+  .curso { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #f0f3f8; gap:12px; }
+  .curso:last-child { border-bottom:none; }
+  .curso a { color:#1565d8; text-decoration:none; font-weight:600; }
+  .curso a:hover { text-decoration:underline; }
+  .curso .nolink { color:#445; font-weight:600; }
+  .curso .pts { font-size:.85rem; color:#f7b500; font-weight:700; white-space:nowrap; }
+  .obs { font-size:.92rem; color:#556; text-align:center; margin-bottom:14px; }
+  footer { text-align:center; margin-top:40px; font-size:.85rem; color:#778; }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="logos-topo">
+      <div class="box"><img src="logo-lag-atacadao.png" alt="LAG Atacadão"></div>
+      <div class="box"><img src="logo-super-lagoa.png" alt="Super Lagoa"></div>
+    </div>
+    <h1>🏆 Desafio das Trilhas — Bora Pontuar!</h1>
+    <p>60 dias, 3 equipes, 1 missão: aprender muito e subir no ranking! Cada hora de curso concluído (com certificado validado) vale 5 XP. As ilhas da Unilagoa valem 10 XP cada. Bora! 🚀</p>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <h2>🎯 A Ideia do Game</h2>
+      <div class="cards">
+        <div class="card"><div class="ico">🧭</div><h3>Aprenda</h3><p>Cursos das trilhas e da UniLagoa, no seu ritmo.</p></div>
+        <div class="card"><div class="ico">⚡</div><h3>Pontue</h3><p>Cada curso concluído vira XP para a sua equipe.</p></div>
+        <div class="card"><div class="ico">🤝</div><h3>Em equipe</h3><p>3 times mistos: gerentes gerais, operacionais e líderes de área.</p></div>
+        <div class="card"><div class="ico">📈</div><h3>Se qualifique</h3><p>O objetivo é se qualificar cada vez mais — todo mundo cresce.</p></div>
+      </div>
+      <div class="nums" style="margin-top:18px">
+        <div class="num"><div class="big">01/07</div><div class="lbl">Início — 1ª etapa do 2º PDL de 2026</div></div>
+        <div class="num"><div class="big">60</div><div class="lbl">dias de desafio</div></div>
+        <div class="num"><div class="big">3</div><div class="lbl">equipes mistas competindo</div></div>
+      </div>
+      <div class="marcas">
+        <div class="marca"><img src="logo-unilagoa.png" alt="UniLagoa"></div>
+        <div class="marca"><img src="logo-fgv.png" alt="FGV Educação Executiva"></div>
+        <div class="marca"><img src="logo-govbr.png" alt="gov.br Cursos Gratuitos"></div>
+        <div class="marca"><img src="logo-xp-educacao.png" alt="XP Educação"></div>
+        <div class="marca"><img src="logo-pucrs.png" alt="PUCRS online"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>👥 As Equipes</h2>
+      <div class="equipes">
+        <div class="eq"><div class="ico">🧭</div><h3>Desbravadores</h3><div class="xp" id="card-Desbravadores">—</div></div>
+        <div class="eq"><div class="ico">⚡</div><h3>Desenrolados</h3><div class="xp" id="card-Desenrolados">—</div></div>
+        <div class="eq"><div class="ico">🏃</div><h3>Bate-Metas</h3><div class="xp" id="card-Bate-Metas">—</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>📊 Ranking ao Vivo</h2>
+      <div class="rank-box">
+        <div class="tabs">
+          <button class="tab ativo" id="tab-time" onclick="trocarAba('time')">🏅 Por time</button>
+          <button class="tab" id="tab-trilha" onclick="trocarAba('trilha')">🧩 Por trilha</button>
+          <button class="tab" id="tab-pessoa" onclick="trocarAba('pessoa')">🙋 Por pessoa</button>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>Nome</th><th class="xp">XP</th></tr></thead>
+          <tbody id="rank-corpo"><tr><td colspan="3" style="text-align:center;color:#889">Carregando ranking...</td></tr></tbody>
+        </table>
+        <button class="atualizar" onclick="carregarRanking()">🔄 Atualizar ranking</button>
+        <div class="atu-info" id="atu-info"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>📚 As 7 Trilhas e seus Cursos</h2>
+      <p class="obs">Repositório de cursos. Clique no nome para abrir o curso. (Os cursos da UniLagoa são acessados internamente, sem link externo.)</p>
+
+      <div class="trilha">
+        <h3>🧭 Trilha 1 — Liderança e Gestão de Pessoas</h3>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/lideranca-e-gestao-de-pessoas" target="_blank">Liderança e Gestão de Pessoas (FGV)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-de-equipes" target="_blank">Gestão de Equipes (FGV)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/feedback" target="_blank">Feedback e Desenvolvimento (FGV)</a><span class="pts">5 XP / hora</span></div>
+      </div>
+
+      <div class="trilha">
+        <h3>💬 Trilha 2 — Comunicação e Relacionamento</h3>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/storytelling-e-tecnicas-de-apresentacao-conceitos-gerais-de-comunicacao" target="_blank">Storytelling e Técnicas de Apresentação (FGV)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/comunicacao-assertiva" target="_blank">Comunicação Assertiva (FGV)</a><span class="pts">5 XP / hora</span></div>
+      </div>
+
+      <div class="trilha">
+        <h3>🌱 Trilha 3 — Autoconhecimento e Desenvolvimento</h3>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/autoconhecimento" target="_blank">Autoconhecimento (FGV)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/inteligencia-emocional" target="_blank">Inteligência Emocional (FGV)</a><span class="pts">5 XP / hora</span></div>
+      </div>
+
+      <div class="trilha">
+        <h3>🤝 Trilha 4 — Atendimento e Experiência do Cliente</h3>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/encantamento-do-cliente" target="_blank">Encantamento do Cliente (FGV)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-da-experiencia-do-cliente" target="_blank">Gestão da Experiência do Cliente (FGV)</a><span class="pts">5 XP / hora</span></div>
+      </div>
+
+      <div class="trilha">
+        <h3>⚙️ Trilha 5 — Gestão e Processos</h3>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-da-mudanca" target="_blank">Gestão da Mudança (FGV)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-de-processos" target="_blank">Gestão de Processos (FGV)</a><span class="pts">5 XP / hora</span></div>
+      </div>
+
+      <div class="trilha">
+        <h3>💰 Trilha 6 — Finanças, Dados e Educação Financeira</h3>
+        <div class="curso"><a href="https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/como-gastar-conscientemente" target="_blank">Como Gastar Conscientemente (FGV)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://online.pucrs.br/formacao-gratuita/financas-pessoais-e-planejamento-financeiro" target="_blank">Finanças Pessoais e Planejamento Financeiro (PUCRS)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/Curso-consumo-de-credito-prevencao-e-tratamento-do-superendividamento" target="_blank">Consumo de Crédito, Prevenção e Tratamento do Superendividamento (gov.br)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/Curso-Educacao-financeira-em-cena" target="_blank">Curso Educação Financeira em Cena (gov.br)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/Curso-educacao-financeira-em-cena-vida-financeira" target="_blank">Curso Educação Financeira em Cena: Vida Financeira (gov.br)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/curso-introducao-a-defesa-do-consumidor" target="_blank">Curso Introdução à Defesa do Consumidor (gov.br)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/curso-principios-e-direitos-basicos-do-cdc" target="_blank">Curso Princípios e Direitos Básicos do CDC (gov.br)</a><span class="pts">5 XP / hora</span></div>
+        <div class="curso"><a href="https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/curso-vigilancia-sanitaria-e-defesa-do-consumidor" target="_blank">Curso Vigilância Sanitária e Defesa do Consumidor (gov.br)</a><span class="pts">5 XP / hora</span></div>
+      </div>
+
+      <div class="trilha">
+        <h3>🏝️ Trilha UniLagoa — Cultura e Bem-Estar Lagoa</h3>
+        <div class="curso"><span class="nolink">Ilha do Futuro</span><span class="pts">10 XP</span></div>
+        <div class="curso"><span class="nolink">Ilha do Bem-Estar</span><span class="pts">10 XP</span></div>
+        <div class="curso"><span class="nolink">Ilha do Encantamento</span><span class="pts">10 XP</span></div>
+        <div class="curso"><span class="nolink">SESMT</span><span class="pts">10 XP</span></div>
+        <div class="curso"><span class="nolink">Porto do Jeito de Ser Lagoa</span><span class="pts">10 XP</span></div>
+        <div class="curso"><span class="nolink">Grupo Lagoa</span><span class="pts">10 XP</span></div>
+      </div>
+    </section>
+
+    <footer>Grupo Lagoa • Desafio das Trilhas • Pontuação só vale com certificado anexado e validado ✅</footer>
+  </div>
+
+<script>
+  var API_URL = 'https://script.google.com/macros/s/AKfycbxgDpv2EbCx5D1U0vGHrMmSgne6kOKA0P9o89tUEVdhkOOSyfGI2U0EdxbqOFB90Q4xuw/exec';
+  var dados = null;
+  var abaAtual = 'time';
+
+  function trocarAba(aba){
+    abaAtual = aba;
+    document.getElementById('tab-time').className = 'tab' + (aba === 'time' ? ' ativo' : '');
+    document.getElementById('tab-trilha').className = 'tab' + (aba === 'trilha' ? ' ativo' : '');
+    document.getElementById('tab-pessoa').className = 'tab' + (aba === 'pessoa' ? ' ativo' : '');
+    renderizar();
+  }
+
+  function medalha(i){
+    if(i === 0) return '🥇';
+    if(i === 1) return '🥈';
+    if(i === 2) return '🥉';
+    return (i + 1);
+  }
+
+  function renderizar(){
+    var corpo = document.getElementById('rank-corpo');
+    if(!dados){ corpo.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#889">Carregando...</td></tr>'; return; }
+    var lista = [];
+    if(abaAtual === 'time') lista = dados.porTime || [];
+    else if(abaAtual === 'trilha') lista = dados.porTrilha || [];
+    else lista = dados.porPessoa || [];
+    if(!lista.length){ corpo.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#889">Sem dados ainda.</td></tr>'; return; }
+    var html = '';
+    for(var i = 0; i < lista.length; i++){
+      html += '<tr><td>' + medalha(i) + '</td><td>' + lista[i].nome + '</td><td class="xp">' + lista[i].xp + '</td></tr>';
+    }
+    corpo.innerHTML = html;
+  }
+
+  function atualizarCards(){
+    if(!dados || !dados.porTime) return;
+    for(var i = 0; i < dados.porTime.length; i++){
+      var nome = dados.porTime[i].nome.replace(/[^A-Za-zÀ-ÿ0-9-]/g,'').trim();
+      var el = document.getElementById('card-' + nome);
+      if(el) el.textContent = dados.porTime[i].xp + ' XP';
+    }
+  }
+
+  function carregarRanking(){
+    var corpo = document.getElementById('rank-corpo');
+    corpo.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#889">Carregando ranking...</td></tr>';
+    fetch(API_URL)
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        dados = j;
+        renderizar();
+        atualizarCards();
+        document.getElementById('atu-info').textContent = 'Atualizado em ' + new Date().toLocaleString('pt-BR');
+      })
+      .catch(function(e){
+        corpo.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#c00">Erro ao carregar. Tente novamente.</td></tr>';
+      });
+  }
+
+  carregarRanking();
+</script>
+</body>
+</html>
