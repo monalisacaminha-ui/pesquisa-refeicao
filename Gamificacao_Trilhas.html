@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 Desafio das Trilhas — Bora Pontuar!</title>
+<style>
+  :root{
+    --azul:#2b59ff; --roxo:#7b2bff; --verde:#1faa59; --laranja:#ff8a1f;
+    --bg:#0c1124; --card:#141a33; --linha:#243056; --txt:#eef2ff; --sub:#9fb0e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;}
+  a{color:inherit;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
+  header.hero{background:linear-gradient(120deg,var(--azul),var(--roxo));padding:60px 20px;text-align:center;}
+  header.hero h1{font-size:42px;margin-bottom:14px;}
+  header.hero p{font-size:18px;max-width:760px;margin:0 auto;color:#e7ecff;}
+  .selo{font-weight:700;}
+  section{margin-top:46px;}
+  h2{font-size:26px;margin-bottom:18px;display:flex;align-items:center;gap:10px;border-left:5px solid var(--laranja);padding-left:12px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .equipe{background:var(--card);border:1px solid var(--linha);border-radius:16px;padding:28px;text-align:center;}
+  .equipe .ico{font-size:40px;}
+  .equipe h3{margin:10px 0 6px;font-size:22px;}
+  .equipe .pts{font-size:28px;color:var(--sub);font-weight:700;}
+  .e1{border-top:4px solid var(--azul);}
+  .e2{border-top:4px solid var(--laranja);}
+  .e3{border-top:4px solid var(--verde);}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+  .tab{background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:16px;text-align:center;font-size:18px;font-weight:600;cursor:pointer;}
+  .tab.ativo{background:linear-gradient(120deg,var(--azul),var(--roxo));box-shadow:0 0 18px rgba(43,89,255,.5);}
+  .rank-status{text-align:center;color:var(--sub);padding:24px;}
+  .vista{display:none;}
+  .vista.on{display:block;}
+  table.rk{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;}
+  table.rk th,table.rk td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--linha);}
+  table.rk th{background:#1b2banza;color:var(--sub);font-size:14px;text-transform:uppercase;letter-spacing:.5px;background:#1b2240;}
+  .btn{display:inline-block;margin:18px auto 0;padding:12px 22px;border-radius:12px;border:none;background:var(--azul);color:#fff;font-size:16px;cursor:pointer;}
+  .center{text-align:center;}
+  .ideia{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .pilar{background:var(--card);border:1px solid var(--linha);border-radius:14px;padding:20px;text-align:center;}
+  .pilar .ico{font-size:34px;}
+  .pilar h4{margin:8px 0 6px;}
+  .pilar p{font-size:14px;color:var(--sub);}
+  .pdl{background:var(--card);border:1px solid var(--linha);border-radius:16px;padding:28px;margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:center;}
+  .pdl .num{font-size:40px;font-weight:800;color:var(--laranja);}
+  .pdl .lbl{color:var(--sub);}
+  .marcas{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;margin-top:18px;}
+  .marca{background:#fff;color:#0c1124;border-radius:10px;padding:14px 20px;font-weight:800;letter-spacing:.5px;min-width:130px;text-align:center;}
+  .trilha{background:var(--card);border:1px solid var(--linha);border-radius:14px;padding:22px;margin-bottom:16px;}
+  .trilha h3{display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:20px;}
+  .trilha ul{list-style:none;}
+  .trilha li{padding:8px 0;border-bottom:1px solid var(--linha);display:flex;justify-content:space-between;gap:12px;align-items:center;}
+  .trilha li:last-child{border-bottom:none;}
+  .trilha a{color:#8fb0ff;text-decoration:none;}
+  .trilha a:hover{text-decoration:underline;}
+  .xp{background:#1b2240;color:var(--sub);border-radius:8px;padding:3px 10px;font-size:13px;white-space:nowrap;}
+  footer{text-align:center;color:var(--sub);margin-top:50px;font-size:14px;}
+  @media(max-width:820px){.grid3,.ideia,.pdl,.tabs{grid-template-columns:1fr;}header.hero h1{font-size:30px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🏆 Desafio das Trilhas — Bora Pontuar!</h1>
+  <p>60 dias, 3 equipes, 1 missão: aprender muito e subir no ranking! Cada hora de curso concluído (com certificado validado) vale <span class="selo">5 XP</span>. As ilhas da Unilagoa valem <span class="selo">10 XP</span> cada. Bora! 🚀</p>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2>🎯 A Ideia do Game</h2>
+    <div class="ideia">
+      <div class="pilar"><div class="ico">🧭</div><h4>Aprenda</h4><p>Cursos das trilhas e da UniLagoa, no seu ritmo.</p></div>
+      <div class="pilar"><div class="ico">⚡</div><h4>Pontue</h4><p>Cada curso concluído vira XP para a sua equipe.</p></div>
+      <div class="pilar"><div class="ico">🤝</div><h4>Em equipe</h4><p>3 times mistos: gerentes gerais, operacionais e líderes de área.</p></div>
+      <div class="pilar"><div class="ico">📈</div><h4>Se qualifique</h4><p>O objetivo é se qualificar cada vez mais — todo mundo cresce.</p></div>
+    </div>
+    <div class="pdl">
+      <div><div class="num">01/07</div><div class="lbl">Início — 1ª etapa do 2º PDL de 2026</div></div>
+      <div><div class="num">60</div><div class="lbl">dias de desafio</div></div>
+      <div><div class="num">3</div><div class="lbl">equipes mistas competindo</div></div>
+    </div>
+    <div class="marcas">
+      <div class="marca">LAG Atacadão</div>
+      <div class="marca">Super Lagoa</div>
+      <div class="marca">UniLagoa</div>
+      <div class="marca">FGV</div>
+      <div class="marca">XP Educação</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>👥 As Equipes</h2>
+    <div class="grid3">
+      <div class="equipe e1"><div class="ico">🧭</div><h3>Desbravadores</h3><div class="pts" id="card-Desbravadores">—</div></div>
+      <div class="equipe e2"><div class="ico">⚡</div><h3>Desenrolados</h3><div class="pts" id="card-Desenrolados">—</div></div>
+      <div class="equipe e3"><div class="ico">🏃</div><h3>Bate-Metas</h3><div class="pts" id="card-Bate-Metas">—</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📊 Ranking ao Vivo</h2>
+    <div class="tabs">
+      <div class="tab ativo" id="tab-equipe" onclick="trocarVista('equipe')">🏅 Por time</div>
+      <div class="tab" id="tab-trilha" onclick="trocarVista('trilha')">🧩 Por trilha</div>
+      <div class="tab" id="tab-pessoa" onclick="trocarVista('pessoa')">🙋 Por pessoa</div>
+    </div>
+    <div class="vista on" id="vista-equipe"><div class="rank-status">Carregando ranking…</div></div>
+    <div class="vista" id="vista-trilha"><div class="rank-status">Carregando ranking…</div></div>
+    <div class="vista" id="vista-pessoa"><div class="rank-status">Carregando ranking…</div></div>
+    <div class="center">
+      <button class="btn" onclick="carregarRanking()">🔄 Atualizar ranking</button>
+      <div id="atualizado" style="color:var(--sub);margin-top:10px;font-size:13px;"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📚 As 7 Trilhas e seus Cursos</h2>
+    <p style="color:var(--sub);margin-bottom:14px;">Repositório de cursos. Clique no nome para abrir o curso. <em>(Os cursos da UniLagoa são acessados internamente, sem link externo.)</em></p>
+    <div id="trilhas-box"></div>
+  </section>
+
+  <footer>Grupo Lagoa • Desafio das Trilhas • Pontuação só vale com certificado anexado e validado ✅</footer>
+
+</div>
+
+<script>
+var API_URL = "https://script.google.com/macros/s/AKfycbxgDpv2EbCx5D1U0vGHrMmSgne6kOKA0P9o89tUEVdhkOOSyfGI2U0EdxbqOFB90Q4xuw/exec";
+
+var TRILHAS = [
+  { nome: "Trilha 1 — Liderança e Gestão de Pessoas", icone: "🧭", cursos: [
+    { nome: "Liderança e Gestão de Pessoas (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/lideranca-e-gestao-de-pessoas" },
+    { nome: "Gestão de Equipes (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-de-equipes" },
+    { nome: "Feedback e Desenvolvimento (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/feedback" }
+  ]},
+  { nome: "Trilha 2 — Comunicação e Relacionamento", icone: "💬", cursos: [
+    { nome: "Storytelling e Técnicas de Apresentação (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/storytelling-e-tecnicas-de-apresentacao-conceitos-gerais-de-comunicacao" },
+    { nome: "Comunicação Assertiva (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/comunicacao-assertiva" }
+  ]},
+  { nome: "Trilha 3 — Autoconhecimento e Desenvolvimento", icone: "🌱", cursos: [
+    { nome: "Autoconhecimento (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/autoconhecimento" },
+    { nome: "Inteligência Emocional (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/inteligencia-emocional" }
+  ]},
+  { nome: "Trilha 4 — Atendimento e Experiência do Cliente", icone: "🤝", cursos: [
+    { nome: "Encantamento do Cliente (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/encantamento-do-cliente" },
+    { nome: "Gestão da Experiência do Cliente (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-da-experiencia-do-cliente" }
+  ]},
+  { nome: "Trilha 5 — Gestão e Processos", icone: "⚙️", cursos: [
+    { nome: "Gestão da Mudança (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-da-mudanca" },
+    { nome: "Gestão de Processos (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/gestao-de-processos" }
+  ]},
+  { nome: "Trilha 6 — Finanças, Dados e Educação Financeira", icone: "💰", cursos: [
+    { nome: "Como Gastar Conscientemente (FGV)", link: "https://educacao-executiva.fgv.br/cursos/online/curta-media-duracao-online/como-gastar-conscientemente" },
+    { nome: "Finanças Pessoais e Planejamento Financeiro (PUCRS)", link: "https://online.pucrs.br/formacao-gratuita/financas-pessoais-e-planejamento-financeiro" },
+    { nome: "Consumo de Crédito, Prevenção e Tratamento do Superendividamento (gov.br)", link: "https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/Curso-consumo-de-credito-prevencao-e-tratamento-do-superendividamento" },
+    { nome: "Curso Educação Financeira em Cena (gov.br)", link: "https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/Curso-Educacao-financeira-em-cena" },
+    { nome: "Curso Educação Financeira em Cena: Vida Financeira (gov.br)", link: "https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/Curso-educacao-financeira-em-cena-vida-financeira" },
+    { nome: "Curso Introdução à Defesa do Consumidor (gov.br)", link: "https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/curso-introducao-a-defesa-do-consumidor" },
+    { nome: "Curso Princípios e Direitos Básicos do CDC (gov.br)", link: "https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/curso-principios-e-direitos-basicos-do-cdc" },
+    { nome: "Curso Vigilância Sanitária e Defesa do Consumidor (gov.br)", link: "https://www.gov.br/mj/pt-br/assuntos/seus-direitos/consumidor/escola-nacional-endc/cursos-endc/curso-vigilancia-sanitaria-e-defesa-do-consumidor" }
+  ]},
+  { nome: "Trilha UniLagoa — Cultura e Bem-Estar Lagoa", icone: "🏝️", cursos: [
+    { nome: "Ilha do Futuro", link: "" },
+    { nome: "Ilha do Bem-Estar", link: "" },
+    { nome: "Ilha do Encantamento", link: "" },
+    { nome: "SESMT", link: "" },
+    { nome: "Porto do Jeito de Ser Lagoa", link: "" },
+    { nome: "Grupo Lagoa", link: "" }
+  ]}
+];
+
+function icone(e){ return e && e.icone ? e.icone : "📘"; }
+
+function n(v){ return (v===undefined || v===null) ? "—" : v; }
+
+function medalha(i){
+  if(i===0) return "🥇";
+  if(i===1) return "🥈";
+  if(i===2) return "🥉";
+  return (i+1) + "º";
+}
+
+function renderTrilhas(){
+  var box = document.getElementById("trilhas-box");
+  if(!box) return;
+  var html = "";
+  for(var t=0; t<TRILHAS.length; t++){
+    var tr = TRILHAS[t];
+    var ehUni = tr.nome.indexOf("UniLagoa") > -1;
+    html += '<div class="trilha">';
+    html += '<h3>' + tr.icone + ' ' + tr.nome + '</h3><ul>';
+    for(var c=0; c<tr.cursos.length; c++){
+      var cur = tr.cursos[c];
+      var xp = ehUni ? "10 XP" : "5 XP / hora";
+      var nomeHTML;
+      if(cur.link && cur.link.length > 0){
+        nomeHTML = '<a href="' + cur.link + '" target="_blank" rel="noopener">' + cur.nome + '</a>';
+      } else {
+        nomeHTML = '<span>' + cur.nome + '</span>';
+      }
+      html += '<li>' + nomeHTML + '<span class="xp">' + xp + '</span></li>';
+    }
+    html += '</ul></div>';
+  }
+  box.innerHTML = html;
+}
+
+function trocarVista(v){
+  var vistas = ["equipe","trilha","pessoa"];
+  for(var i=0; i<vistas.length; i++){
+    var name = vistas[i];
+    var elV = document.getElementById("vista-" + name);
+    var elT = document.getElementById("tab-" + name);
+    if(elV) elV.className = (name===v) ? "vista on" : "vista";
+    if(elT) elT.className = (name===v) ? "tab ativo" : "tab";
+  }
+}
+
+function listaHTML(arr){
+  if(!arr || arr.length===0){
+    return '<div class="rank-status">Sem dados ainda. Quando alguém enviar certificado, aparece aqui.</div>';
+  }
+  var html = '<table class="rk"><tr><th>#</th><th>Nome</th><th>XP</th></tr>';
+  for(var i=0; i<arr.length; i++){
+    var item = arr[i];
+    html += '<tr><td>' + medalha(i) + '</td><td>' + n(item.nome) + '</td><td>' + n(item.xp) + '</td></tr>';
+  }
+  html += '</table>';
+  return html;
+}
+
+function cardHTML(e){
+  return n(e.xp) + " XP";
+}
+
+function carregarRanking(){
+  ["equipe","trilha","pessoa"].forEach(function(v){
+    var el = document.getElementById("vista-" + v);
+    if(el) el.innerHTML = '<div class="rank-status">Carregando ranking…</div>';
+  });
+  fetch(API_URL)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      document.getElementById("vista-equipe").innerHTML = listaHTML(d.porEquipe);
+      document.getElementById("vista-trilha").innerHTML = listaHTML(d.porTrilha);
+      document.getElementById("vista-pessoa").innerHTML = listaHTML(d.porPessoa);
+      (d.porEquipe || []).forEach(function(e){
+        var el = document.getElementById("card-" + e.nome);
+        if(el) el.innerHTML = cardHTML(e);
+      });
+      if(d.atualizado){
+        document.getElementById("atualizado").textContent = "Atualizado em " + new Date(d.atualizado).toLocaleString("pt-BR");
+      }
+    })
+    .catch(function(){
+      ["equipe","trilha","pessoa"].forEach(function(v){
+        var el = document.getElementById("vista-" + v);
+        if(el) el.innerHTML = '<div class="rank-status">⚠️ Não foi possível carregar o ranking. Clique em "Atualizar ranking".</div>';
+      });
+    });
+}
+
+renderTrilhas();
+carregarRanking();
+</script>
+
+</body>
+</html>
