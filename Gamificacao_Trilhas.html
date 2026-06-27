@@ -22,7 +22,7 @@
   .card .ico { font-size:2rem; }
   .card h3 { color:#1565d8; margin:8px 0 6px; font-size:1.1rem; }
   .card p { font-size:.92rem; color:#556; }
-  .nums { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; text-align:center; }
+  .nums { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; text-align:center; }
   .num { background:#fff; border-radius:16px; padding:22px 12px; box-shadow:0 4px 14px rgba(0,0,0,.08); }
   .num .big { font-size:2.2rem; font-weight:800; color:#f7b500; }
   .num .lbl { font-size:.9rem; color:#556; margin-top:4px; }
@@ -57,7 +57,7 @@
     .cta-form { display:block; width:max-content; max-width:90%; margin:8px auto 4px; background:#f7b500; color:#1f2d3d; text-decoration:none; padding:16px 34px; border-radius:28px; font-weight:800; font-size:1.12rem; text-align:center; box-shadow:0 6px 18px rgba(247,181,0,.45); transition:transform .15s; }
     .cta-form:hover { transform:translateY(-3px); }
 
-.hr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:18px; }
+.hr-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px; }
 .hr-trilha { background:#fff; border-radius:14px; padding:16px 12px; box-shadow:0 4px 14px rgba(0,0,0,.08); text-align:center; border-top:5px solid #1565d8; }
 .hr-trilha .nome { font-size:.8rem; color:#556; min-height:48px; display:flex; align-items:center; justify-content:center; line-height:1.25; }
 .hr-trilha .val { font-size:1.35rem; font-weight:800; color:#0a3d91; margin-top:6px; }
@@ -67,6 +67,7 @@
 .hr-total .nome, .hr-total .val { color:#fff; }
 .hr-eq { background:#fff; border-radius:16px; padding:20px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,.08); border-top:6px solid #f7b500; }
 .hr-eq h4 { color:#0a3d91; margin:6px 0 12px; font-size:1.1rem; }
+.hr-eq .eq-lojas { font-size:.78rem; color:#556; margin:-6px 0 12px; line-height:1.3; }
 .hr-eq .horas { font-size:1.7rem; font-weight:800; color:#0a3d91; }
 .hr-eq .sub { font-size:.85rem; color:#556; margin-top:8px; line-height:1.6; }
 .hr-eq .sub b { color:#f7b500; }
@@ -102,6 +103,7 @@
         <div class="num"><div class="big">3</div><div class="lbl">equipes mistas competindo</div></div>
         <div class="num"><div class="big">7</div><div class="lbl">trilhas de conhecimento</div></div>
         <div class="num"><div class="big">57</div><div class="lbl">cursos disponíveis</div></div>
+        <div class="num" id="prazo-box"><div class="big">—</div><div class="lbl">📅 período do desafio</div></div>
       </div>
       <div class="marcas">
         <div class="marca"><img src="logo-unilagoa.png" alt="UniLagoa"></div>
@@ -124,9 +126,6 @@
       <div class="equipes" id="hr-equipes"></div>
       <h3 class="hr-sub">🧩 Por trilha</h3>
       <div class="hr-grid" id="hr-trilhas"></div>
-      <h3 class="hr-sub">📅 Prazo</h3>
-      <div class="nums" id="hr-prazo"></div>
-      <div id="hr-progresso" style="margin-top:14px"></div>
       <h3 class="hr-sub">🙋 Por pessoa</h3>
       <div class="rank-box">
         <table>
@@ -325,25 +324,23 @@ function carregarHoras(){
     var eI = findRowHoras(rows,"POR EQUIPE");
     var pzI = findRowHoras(rows,"PRAZO");
     var icones={ "Bate-Metas":"🏃","Desbravadores":"🧭","Desenrolados":"⚡" };
+    var lojas = {"Desbravadores":"Atacadão Lag + todo o time de Prevenção de Perdas","Desenrolados":"Lojas de número PAR do Super Lagoa","Bate-Metas":"Lojas de número ÍMPAR do Grupo Lagoa"};
     var eh="";
     for(var j=eI+2;j<pzI;j++){ var en=String(rows[j][0]||"").replace(/[^A-Za-zÀ-ÿ\- ]/g,"").trim(); var eHoras=String(rows[j][1]||"").trim(); if(!en) continue;
       var xp=String(rows[j][2]||"").trim(), xph=String(rows[j][3]||"").trim(), cert=String(rows[j][4]||"").trim();
       var ic=icones[en]||"🏅";
-      eh += '<div class="hr-eq"><div class="ico">'+ic+'</div><h4>'+escHoras(en)+'</h4><div class="xpbig">'+escHoras(xp)+' XP</div><div class="sub">⏱️ <b>'+escHoras(eHoras)+'</b> horas &nbsp;•&nbsp; '+escHoras(xph)+' XP/hora<br>📜 '+escHoras(cert)+' certificados</div></div>'; }
+      var lj = lojas[en]||"";
+      eh += '<div class="hr-eq"><div class="ico">'+ic+'</div><h4>'+escHoras(en)+'</h4>'+(lj?('<div class="eq-lojas">'+lj+'</div>'):'')+'<div class="xpbig">'+escHoras(xp)+' XP</div><div class="sub">⏱️ <b>'+escHoras(eHoras)+'</b> horas &nbsp;•&nbsp; '+escHoras(xph)+' XP/hora<br>📜 '+escHoras(cert)+' certificados</div></div>'; }
     document.getElementById('hr-equipes').innerHTML = eh;
 
     var ppI = findRowHoras(rows,"POR PESSOA");
     var getP=function(label){ for(var k=pzI+1;k<ppI;k++){ if(String(rows[k][0]||"").toUpperCase().indexOf(label)>=0) return String(rows[k][1]||"").trim(); } return ""; };
     var dias=getP("DIAS FALTANTES"), ini=getP("INÍCIO")||getP("INICIO"), fim=getP("TÉRMINO")||getP("TERMINO");
-    var diasN = parseInt(String(dias).replace(/\D/g,""),10)||0;
     var durTxt = getP("DURA"); var durN = parseInt(String(durTxt).replace(/\D/g,""),10)||76;
+    var diasN = parseInt(String(dias).replace(/\D/g,""),10)||0;
     var passados = Math.max(0, durN - diasN); var pct = durN>0 ? Math.min(100, Math.round(passados/durN*100)) : 0;
-    document.getElementById('hr-prazo').innerHTML =
-      '<div class="num"><div class="big">'+escHoras(ini)+'</div><div class="lbl">📅 início</div></div>'+
-      '<div class="num num-destaque"><div class="big">'+escHoras(String(diasN))+'</div><div class="lbl">⏳ dias faltantes</div></div>'+
-      '<div class="num"><div class="big">'+escHoras(fim)+'</div><div class="lbl">🏁 término</div></div>';
-    var pb = document.getElementById('hr-progresso');
-    if(pb){ pb.innerHTML = '<div class="pb-track"><div class="pb-fill" style="width:'+pct+'%">'+pct+'%</div></div><div class="pb-lbl">'+passados+' de '+durN+' dias percorridos</div>'; }
+    var pbox = document.getElementById('prazo-box');
+    if(pbox){ pbox.innerHTML = '<div class="big" style="font-size:1.25rem;line-height:1.2">'+escHoras(ini)+' <span style="color:#1565d8">→</span> '+escHoras(fim)+'</div><div class="lbl">📅 período do desafio</div><div class="pb-track" style="margin-top:10px;height:18px"><div class="pb-fill" style="width:'+pct+'%;font-size:.72rem;padding-right:8px">'+pct+'%</div></div><div class="pb-lbl" style="font-size:.72rem;margin-top:4px">'+passados+' de '+durN+' dias percorridos</div>'; }
 
     var ph="", rank=0;
     for(var m=ppI+2;m<rows.length;m++){ var pn=String(rows[m][0]||"").trim(); if(!pn) continue;
