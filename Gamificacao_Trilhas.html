@@ -101,7 +101,7 @@
       </div>
       <div class="nums" style="margin-top:18px">
         <div class="num">
-          <div class="big" style="font-size:1.6rem;line-height:1.4">3 <span style="font-size:.95rem;font-weight:600;color:#556">equipes</span><br>7 <span style="font-size:.95rem;font-weight:600;color:#556">trilhas</span><br>57 <span style="font-size:.95rem;font-weight:600;color:#556">cursos</span></div>
+          <div class="big" style="font-size:1.6rem;line-height:1.4">57 <span style="font-size:.95rem;font-weight:600;color:#556">cursos</span><br>7 <span style="font-size:.95rem;font-weight:600;color:#556">trilhas</span><br>3 <span style="font-size:.95rem;font-weight:600;color:#556">equipes</span></div>
           <div class="lbl">o desafio em números</div>
         </div>
         <div class="num" id="box-top-xp">
@@ -110,9 +110,9 @@
           <div class="num-cert" style="margin-top:10px;padding-top:8px;border-top:1px solid #eef1f7;font-size:.85rem;color:#1565d8;font-weight:600">📜 — certificados validados</div>
         </div>
         <div class="num" id="box-horas">
-          <div class="big">—</div>
-          <div class="lbl">⏱️ horas de treinamento</div>
-          <div class="num-cert" style="margin-top:10px;padding-top:8px;border-top:1px solid #eef1f7;font-size:.85rem;color:#1565d8;font-weight:600">📜 — certificados validados</div>
+          <div class="big" id="horas-cert-big">📜 —</div>
+          <div class="lbl">certificados validados</div>
+          <div class="num-cert" id="horas-sub" style="margin-top:10px;padding-top:8px;border-top:1px solid #eef1f7;font-size:.85rem;color:#1565d8;font-weight:600">⏱️ — horas de treinamento</div>
         </div>
         <div class="num" id="prazo-box"><div class="big">—</div><div class="lbl">📅 período do desafio</div></div>
       </div>
@@ -392,8 +392,8 @@ carregarHoras();
       }
       var boxH = document.getElementById("box-horas");
       if(boxH){
-        boxH.querySelector(".big").textContent = horas;
-        boxH.querySelector(".num-cert").innerHTML = "\uD83D\uDCDC " + certTotal + " certificados validados";
+        boxH.querySelector(".big").innerHTML = "\uD83D\uDCDC " + certTotal;
+        boxH.querySelector(".num-cert").innerHTML = "\u23F1\uFE0F " + horas + " horas de treinamento";
       }
       return (primeiro && primeiro.nome.trim()) && horas !== "—";
     }catch(e){ return false; }
